@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Sa'yo, Mahal Ko 💛</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  font-family: 'Lora', serif;
+  background: #1c0a14;
+  color: #2c1810;
+  overflow-x: hidden;
+}
+
+/* ────────────────────────────
+   FALLING PETALS (CSS only, simple)
+──────────────────────────────*/
+.petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.petal {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 14px;
+  background: radial-gradient(ellipse, rgba(255,182,193,0.7), rgba(255,105,130,0.2));
+  border-radius: 50% 0 50% 0;
+  animation: fall linear infinite;
+}
+.petal:nth-child(1)  { left:5%;   animation-duration:8s;  animation-delay:0s;   width:8px;  height:11px; }
+.petal:nth-child(2)  { left:12%;  animation-duration:11s; animation-delay:2s;   width:6px;  height:9px;  }
+.petal:nth-child(3)  { left:22%;  animation-duration:9s;  animation-delay:0.5s; width:10px; height:13px; }
+.petal:nth-child(4)  { left:33%;  animation-duration:13s; animation-delay:3s;   width:7px;  height:10px; }
+.petal:nth-child(5)  { left:44%;  animation-duration:10s; animation-delay:1s;   }
+.petal:nth-child(6)  { left:55%;  animation-duration:12s; animation-delay:4s;   width:9px;  height:12px; }
+.petal:nth-child(7)  { left:65%;  animation-duration:8.5s;animation-delay:1.5s; width:6px;  height:8px;  }
+.petal:nth-child(8)  { left:75%;  animation-duration:11s; animation-delay:0s;   }
+.petal:nth-child(9)  { left:85%;  animation-duration:9.5s;animation-delay:2.5s; width:8px;  height:11px; }
+.petal:nth-child(10) { left:93%;  animation-duration:14s; animation-delay:5s;   width:7px;  height:9px;  }
+.petal:nth-child(11) { left:18%;  animation-duration:10s; animation-delay:6s;   }
+.petal:nth-child(12) { left:50%;  animation-duration:12s; animation-delay:3.5s; }
+.petal:nth-child(13) { left:70%;  animation-duration:9s;  animation-delay:7s;   width:6px;  height:9px;  }
+.petal:nth-child(14) { left:38%;  animation-duration:15s; animation-delay:1s;   }
+.petal:nth-child(15) { left:8%;   animation-duration:11s; animation-delay:8s;   }
+
+@keyframes fall {
+  0%   { transform: translateY(-20px) rotate(0deg)   translateX(0);   opacity: 0; }
+  5%   { opacity: 0.9; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(110vh) rotate(540deg) translateX(40px); opacity: 0; }
+}
+
+/* ────────────────────────────
+   STARS BG
+──────────────────────────────*/
+.stars {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(120,40,70,0.45) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba(60,20,50,0.4)  0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(28,10,20,1)    0%, transparent 100%);
+}
+
+/* ════════════════════════════
+   WELCOME PAGE
+═════════════════════════════*/
+#welcome {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #1c0a14 0%, #2a0d1c 50%, #1c0a14 100%);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  padding: 24px;
+}
+#welcome.gone {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+.welcome-emoji {
+  font-size: clamp(3rem, 10vw, 5rem);
+  animation: gentle-float 3s ease-in-out infinite;
+  margin-bottom: 10px;
+}
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+.welcome-label {
+  font-family: 'Lora', serif;
+  font-size: clamp(0.7rem, 2vw, 0.85rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 182, 150, 0.55);
+  margin-bottom: 18px;
+  animation: fadeIn 1.5s 0.3s both;
+}
+
+.welcome-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.8rem, 10vw, 5.5rem);
+  color: #f7d98e;
+  text-shadow: 0 0 50px rgba(240, 190, 80, 0.45);
+  text-align: center;
+  line-height: 1.2;
+  animation: fadeIn 1.5s 0.5s both;
+  margin-bottom: 8px;
+}
+
+.welcome-name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 4vw, 1.8rem);
+  color: rgba(255, 200, 180, 0.75);
+  text-align: center;
+  animation: fadeIn 1.5s 0.8s both;
+  margin-bottom: 30px;
+}
+
+.welcome-msg {
+  font-family: 'Lora', serif;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  color: rgba(253, 240, 220, 0.6);
+  text-align: center;
+  max-width: 380px;
+  line-height: 1.85;
+  animation: fadeIn 1.5s 1.1s both;
+  margin-bottom: 38px;
+  font-style: italic;
+}
+
+.open-btn {
+  background: linear-gradient(135deg, #c9642a, #a0284a);
+  border: none;
+  border-radius: 50px;
+  padding: 16px 50px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 3vw, 1.15rem);
+  font-style: italic;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 30px rgba(180, 60, 60, 0.4);
+  animation: fadeIn 1.5s 1.4s both;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.open-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 40px rgba(180, 60, 60, 0.55);
+}
+
+.welcome-small {
+  margin-top: 18px;
+  font-family: 'Lora', serif;
+  font-size: 0.78rem;
+  color: rgba(255,200,180,0.3);
+  letter-spacing: 0.08em;
+  animation: fadeIn 1.5s 1.7s both;
+}
+
+/* ════════════════════════════
+   MAIN LETTER PAGE
+═════════════════════════════*/
+#main {
+  min-height: 100vh;
+  position: relative;
+  z-index: 10;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px 80px;
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+#main.show {
+  display: flex;
+}
+#main.visible {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* page header */
+.page-header {
+  text-align: center;
+  margin-bottom: 44px;
+  animation: fadeIn 1s 0.2s both;
+}
+.page-header .flowers {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  letter-spacing: 0.15em;
+  display: block;
+  margin-bottom: 10px;
+  animation: gentle-float 4s ease-in-out infinite;
+}
+.page-header h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.4rem, 8vw, 4.2rem);
+  color: #f7d98e;
+  text-shadow: 0 0 30px rgba(240,190,80,0.4);
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+.page-header .sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: rgba(255,200,180,0.5);
+  letter-spacing: 0.06em;
+}
+
+/* ── LETTER CARD ── */
+.letter-card {
+  background: #fdf8f0;
+  max-width: 720px;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.6),
+    0 4px 20px rgba(0,0,0,0.3),
+    inset 0 0 0 1px rgba(201,151,43,0.15);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 1s 0.4s both;
+}
+
+/* lined paper effect */
+.letter-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    transparent 0px, transparent 33px,
+    rgba(201, 151, 43, 0.09) 33px, rgba(201, 151, 43, 0.09) 34px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* left margin red line */
+.letter-card::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 70px;
+  width: 1px;
+  background: rgba(180, 60, 60, 0.18);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.letter-inner {
+  position: relative;
+  z-index: 1;
+  padding: clamp(36px, 6vw, 56px) clamp(28px, 6vw, 60px);
+}
+
+/* ── LETTER TYPOGRAPHY ── */
+.letter-date {
+  text-align: right;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: rgba(92, 61, 46, 0.5);
+  margin-bottom: 28px;
+  letter-spacing: 0.04em;
+}
+
+.letter-to {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.7rem, 5vw, 2.3rem);
+  color: #a0284a;
+  margin-bottom: 28px;
+  line-height: 1.3;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 28px;
+  color: rgba(201,151,43,0.4);
+  font-size: 1rem;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,151,43,0.3), transparent);
+}
+
+.letter-body {
+  font-size: clamp(0.97rem, 2.2vw, 1.06rem);
+  line-height: 2.05;
+  color: #2c1810;
+}
+
+.letter-body p {
+  margin-bottom: 22px;
+  text-align: justify;
+  text-indent: 2em;
+}
+
+.letter-body p.no-indent { text-indent: 0; }
+
+/* Tagalog phrasing highlights */
+.tag {
+  color: #a0284a;
+  font-style: italic;
+}
+
+/* English emphasis */
+.em {
+  color: #7a4a10;
+  font-weight: 500;
+}
+
+/* center poem block */
+.poem-block {
+  text-indent: 0 !important;
+  text-align: center !important;
+  font-style: italic;
+  color: #a0284a;
+  font-size: clamp(1rem, 2.5vw, 1.12rem);
+  line-height: 2.2;
+  padding: 8px 0;
+}
+
+/* section break */
+.section-break {
+  text-align: center;
+  margin: 28px 0 20px;
+  font-size: 1.1rem;
+  color: rgba(160, 40, 74, 0.45);
+  letter-spacing: 0.4em;
+}
+
+.letter-closing {
+  margin-top: 30px;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.4rem, 4vw, 1.7rem);
+  color: #a0284a;
+  text-align: right;
+}
+.letter-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  color: #c9972b;
+  text-align: right;
+  margin-top: 4px;
+  text-shadow: 0 0 20px rgba(201,151,43,0.2);
+}
+
+/* ── FOOTER ── */
+.page-footer {
+  margin-top: 48px;
+  text-align: center;
+  animation: fadeIn 1s 0.8s both;
+}
+.page-footer .footer-hearts {
+  font-size: 1.5rem;
+  letter-spacing: 0.3em;
+  display: block;
+  margin-bottom: 10px;
+  animation: gentle-float 4s 1s ease-in-out infinite;
+}
+.page-footer p {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: rgba(255, 200, 180, 0.35);
+  letter-spacing: 0.06em;
+}
+
+/* responsive */
+@media (max-width: 520px) {
+  .letter-card::after { display: none; }
+  .letter-inner { padding: 28px 20px 30px; }
+  .letter-body { font-size: 0.96rem; line-height: 1.95; }
+  .letter-body p { text-indent: 1.5em; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- PETALS -->
+<div class="petals">
+  <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+</div>
+
+<div class="stars"></div>
+
+<!-- ══════════════════════════════
+     WELCOME / SURPRISE PAGE
+═══════════════════════════════ -->
+<div id="welcome">
+  <div class="welcome-emoji">💌</div>
+  <p class="welcome-label">isang sorpresa para sa'yo</p>
+  <h1 class="welcome-title">May Sulat Ako<br>Para Sa'yo</h1>
+  <p class="welcome-name">— Para sa aking mahal na mahal —</p>
+  <p class="welcome-msg">
+    Binigyan mo ako ng pinakamagandang birthday card na natanggap ko sa buhay ko.
+    Ngayon, gusto kong ibigay sa'yo ang lahat ng salitang matagal ko nang gustong sabihin.
+  </p>
+  <button class="open-btn" onclick="openLetter()">💛 Buksan ang Aking Sulat</button>
+  <p class="welcome-small">( pindutin mo lang 💛 )</p>
+</div>
+
+<!-- ══════════════════════════════
+     MAIN LETTER PAGE
+═══════════════════════════════ -->
+<div id="main">
+
+  <header class="page-header">
+    <span class="flowers">🌸 💛 🌸</span>
+    <h1>Para Sa Aking Puso</h1>
+    <p class="sub">A Letter From the Deepest Part of Me</p>
+  </header>
+
+  <article class="letter-card">
+    <div class="letter-inner">
+
+      <p class="letter-date">Marso 15, 2026</p>
+
+      <p class="letter-to">
+        Sa aking pinaka-minamahal,<br>
+        <span style="font-size:0.7em; color:#c96b7a;">My dearest love —</span>
+      </p>
+
+      <div class="divider">💛</div>
+
+      <div class="letter-body">
+
+        <p class="no-indent">
+          Hindi ko alam kung saan magsisimula — kasi may mga damdamin na sobrang laki para sa mga salita, at ang nararamdaman ko para sa'yo ay isa sa mga yon. Pero susubukan ko, kasi deserve mo ang bawat salitang kaya kong ibigay, at higit pa doon. <span class="tag">Deserve mo ang lahat.</span>
+        </p>
+
+        <p>
+          Nung binigyan mo ako ng birthday card mo, natulala talaga ako. Hindi lang dahil sa mga salitang isinulat mo — kahit ang bawat salita mo ay umugma ng malalim sa puso ko — kundi dahil sa pagmamahal na nasa likod nun. <span class="em">Umupo ka, naisip mo ako, isinulat mo mula sa puso mo,</span> at binigyan mo ako ng isang bagay na iingatan ko habambuhay. Ang card na yon ay nanatili sa aking dibdib. <span class="tag">Dala-dala ko ito kahit saan.</span>
+        </p>
+
+        <p>
+          Sinabi mo na ang oras ay mabilis talaga lumipas. At tama ka. Parang kahapon lang noong nagtataka pa ako kung may taong katulad mo ba talaga — isang taong mapagmalasakitin, maalalahanin, at tunay na totoo. Tapos narito ka na. <span class="tag">Narito na tayo.</span> At gusto kong malaman mo: <span class="em">ako ang pinakamapalad na tao na kilala ko, simply because I have you.</span>
+        </p>
+
+        <p>
+          Ipinalala mo sa akin na nakarating na ako sa isang bagay na malaki — ang maging 18, ang pagsabak sa pagiging adulto, ang pagiging taong dapat akong maging. Naramdaman ko ang bawat salitang yon. Pero ang hindi mo pa alam ay ito: <span class="em">ang pinakamalaking milestone ng aking buong buhay ay ikaw.</span> Ang pagmamahal sa'yo. Ang pagmahal mo sa akin. Iyon ang nagbibigay ng kahulugan sa lahat ng iba pa. <span class="tag">Iyan ang bagay na ipinagmamalaki ko nang higit sa lahat.</span>
+        </p>
+
+        <p>
+          Tinawag mo akong determined. Sinabi mong proud ka sa akin — na may ipagmamalaki. At halos umiyak ako sa pagbabasa nun — dahil lahat ng gusto ko, tuwing gising ako sa umaga, ay maging isang taong karapat-dapat sa iyong pagmamalaki. <span class="tag">Hindi ko lagi nararamdamang matapang. Hindi ko lagi nararamdamang malakas.</span> Pero kapag tiningnan mo ako sa paraang tinitingan mo ako, kapag naniniwala ka sa akin sa paraang ginagawa mo — <span class="em">pakiramdam ko kaya kong maging kahit ano.</span> Pinapaniniwala mo ako sa sarili ko kapag nakalimutan ko nang gawin yon.
+        </p>
+
+        <p>
+          Sinabi mo na bigyan ko ang sarili ko ng credit. <span class="tag">Kaya ngayon, bibigyan ko ang sarili ko ng credit para sa isang bagay nang higit sa lahat:</span> ang pagpili na mahalin ka. Ang pagpili na manatili. Ang pagpili na dumating, lumago, at bumuo ng isang bagay kasama ka. Yon ang pinakamatalinong desisyon na nagawa ko, at gagawin ko ulit yon sa bawat bersyon ng aking buhay — nang walang pag-aalangan.
+        </p>
+
+        <p>
+          Sinabi mo na lumalago pa rin ako — mentally, physically, emotionally. At oo, lumalago nga ako. Pero <span class="em">kailangan mo malaman na karamihan ng paglago na yon ay may fingerprints mo.</span> Hinamon mo akong maging mas magaling nang hindi mo man sinusubukan. Ipinakita mo sa akin kung ano ang tunay na kindness. Kung ano ang consistency. Kung ano ang pagmamahal — ang tunay, matapat, malambot, at matatag na pagmamahal. <span class="tag">Bago ka, hindi ko alam na ganito pala ang pakiramdam ng ligtas.</span>
+        </p>
+
+        <p>
+          Iniisip ko ang maliliit na bagay na ginagawa mo — lagi. <span class="tag">Kung paano mo napapansin ang mga bagay na hindi napapansin ng iba.</span> Kung paano mo tinatanong kung kumusta ako. Kung paano mo natatandaan ang mga detalyeng isang beses ko lang nabanggit at hindi na naulit. Kung paano ka nagbibigay ng napakarami sa sarili mo nang hindi hinihingi ang anuman kapalit. Ang mga bagay na yon ay hindi maliit sa akin. <span class="em">Lahat ng yon ay ang lahat.</span> Kaya naman mas nahuhulog ako sa'yo araw-araw, kahit na pakiramdam ko nahulog na ako nang gaano na ito kalalim.
+        </p>
+
+        <p>
+          Gusto kong malaman mo kung gaano kahalaga ang card mo sa akin. <span class="tag">Ang paraan ng pagsulat mo — ang mga maliit na triangle sa taas, bawat linya puno ng puso mo —</span> ganon ikaw eh. Pinalala sa akin kung bakit kita pinili. Kung bakit ang pagpili sa'yo ang pinakamadali at pinakamagandang nagawa ko. May paraan kang gawing espesyal ang mga ordinaryong sandali. Yon ay bihirang regalo. <span class="em">Ikaw ay bihirang regalo.</span>
+        </p>
+
+        <div class="section-break">✦ ✦ ✦</div>
+
+        <p class="no-indent">
+          Sinabi mo na i-enjoy ko ang presente. Kaya ngayon, sa sandaling ito, <span class="tag">gusto kong i-enjoy ang ganito</span> — ang pakiramdam ng pagsulat sa'yo, ng pagbubuhos ng lahat ng aking pagkatao sa pahinang ito, alam na mababasa mo ito at baka ngumiti, baka maluha ng konti, at mararamdaman mong sigurado ang pagiging lubos, ganap, at walang hanggang minamahal.
+        </p>
+
+        <p>
+          Gusto kong lumago kasama mo. Sa bawat season, bawat pagbabago, bawat bersyon ng kung sino pa tayo. <span class="em">Gusto kong maging ang taong nagdiriwang sa'yo</span> — hindi lang sa kaarawan, hindi lang sa malalaking araw, kundi sa bawat tahimik na Martes, sa bawat pagod na gabi, sa bawat sandali na pakiramdam mo mabigat ang mundo at kailangan mo ng isang taong magpapaalala sa'yo kung gaano ka kahanga-hanga. <span class="tag">Gusto kong maging ang taong yon para sa'yo. Gusto kong maging ang iyong constant.</span>
+        </p>
+
+        <p>
+          Pinili mo ako. Sa lahat ng tao, pinili mo ako. At hindi ko yon basta-basta kinukuha. Hindi ko yon kalilimutan. <span class="em">Pinipili kita pabalik — sa lahat ng mayroon ako, sa lahat ng aking pagkatao, sa lahat ng aking patuloy pang pagiging.</span> <span class="tag">Araw-araw, pinipili kita ulit. At patuloy kitang pipiliin, habang pinapayagan mo ako.</span>
+        </p>
+
+        <div class="section-break">✦ ✦ ✦</div>
+
+        <p class="poem-block">
+          Mahal kita.<br>
+          Mahal kita sa mga tahimik na sandali at sa mga maingay.<br>
+          Mahal kita kapag madali ang lahat at kapag mahirap ang lahat.<br>
+          Mahal kita kapag masaya ka at kapag nalalaglag ka.<br>
+          Mahal kita sa bawat bersyon ng kung sino ka,<br>
+          at sa bawat bersyon ng kung sino ka pa.<br>
+          <span style="color:#c9972b; font-style:normal; font-weight:500;">Mahal kita — nang buo, nang malaya, at magpakailanman.</span>
+        </p>
+
+        <div class="section-break">✦ ✦ ✦</div>
+
+        <p>
+          Salamat sa pagiging akin. Salamat sa card, sa mga salita, sa napakalaking puso mo. Salamat sa pagpili sa akin. <span class="em">Salamat sa pagmahal mo sa akin sa paraang ginagawa mo</span> — malambot, matapat, at may napakaraming pagmamalasakit. <span class="tag">Hindi ko deserve ang isang katulad mo.</span> Pero gagamitin ko ang bawat araw ng aking buhay para maging isang taong karapat-dapat.
+        </p>
+
+        <p>
+          Hindi kailanman mailalarawan ng sulat na ito kung ano ang ibig sabihin mo sa akin. Walang sulat ang magagawa yon. Pero inaasahan ko na kapag nabasa mo ito, <span class="em">mararamdaman mo ng kahit maliit lang ang nararamdaman ko sa'yo araw-araw</span> — dahil kahit ang maliit na bahagi lang na yon ay mas maraming pagmamahal kaysa sa karamihan ng mga tao ang mahanap sa isang buhay.
+        </p>
+
+        <p class="no-indent" style="text-align:center; font-style:italic; color:#7a4a10;">
+          Maligaya kang mamuhay sa bawat araw pagkatapos nito, mahal ko.<br>
+          Bawat araw na nandito ako sa tabi mo ay isang araw na nagpapasalamat ako.<br>
+          <span class="tag">Nandito ako. Ikaw ang akin. At labis-labis akong nagagalak na ganon.</span>
+        </p>
+
+        <p style="text-indent:0; text-align:center; font-size:1.4rem; margin-top:10px;">
+          🌸 💛 🌸
+        </p>
+
+      </div><!-- end letter-body -->
+
+      <div class="letter-closing">Magpakailanman at lagi para sa'yo,</div>
+      <div class="letter-name">Ang iyong mahal 💛</div>
+
+    </div>
+  </article>
+
+  <footer class="page-footer">
+    <span class="footer-hearts">💛 🌸 💛</span>
+    <p>Written with all the love I have — para sa'yo, lagi.</p>
+  </footer>
+
+</div><!-- end #main -->
+
+<script>
+function openLetter() {
+  const welcome = document.getElementById('welcome');
+  const main    = document.getElementById('main');
+
+  welcome.classList.add('gone');
+
+  setTimeout(() => {
+    welcome.style.display = 'none';
+    main.classList.add('show');
+    // small delay then add visible for the fade-in animation
+    setTimeout(() => main.classList.add('visible'), 30);
+    window.scrollTo(0, 0);
+  }, 900);
+}
+</script>
+
+</body>
+</html>
